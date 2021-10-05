@@ -1,18 +1,21 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session, redirect
 
 app = Flask(__name__)
 
+app.secret_key="Benny bob wuz heer."
 
 @app.route('/')
 def index():
-    users = [
-        {'first_name': 'Michael', 'last_name': 'Choi'},
-        {'first_name': 'John', 'last_name': 'Supsupin'},
-        {'first_name': 'Mark', 'last_name': 'Guillen'},
-        {'first_name': 'KB', 'last_name': 'Tonel'}
-    ]
-    return render_template("index.html", users=users)
+    if "count" not in session:
+        session["count"] = 0
+    else:
+        session['count'] += 1
+    return render_template("Counter.html")
 
+@app.route('/reset')
+def reset():
+    session.clear()
+    return redirect('/')
 
-if __name__ =="__main__":
+if __name__=="__main__":
     app.run(debug=True)
