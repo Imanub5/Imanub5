@@ -5,24 +5,14 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("index.html",row=8,col=8,color_one='red',color_two='black')
+    users = [
+        {'first_name': 'Michael', 'last_name': 'Choi'},
+        {'first_name': 'John', 'last_name': 'Supsupin'},
+        {'first_name': 'Mark', 'last_name': 'Guillen'},
+        {'first_name': 'KB', 'last_name': 'Tonel'}
+    ]
+    return render_template("index.html", users=users)
 
 
-@app.route('/<int:x>')
-def row(x):
-    return render_template("index.html",row=x,col=8,color_one='red',color_two='black')
-
-@app.route('/<int:x>/<int:y>')
-def row_col(x,y):
-    return render_template("index.html",row=x,col=y,color_one='red',color_two='black')
-
-@app.route('/<int:x>/<int:y>/<string:one>')
-def row_col_one(x,y,one):
-    return render_template("index.html",row=x,col=y,color_one=one,color_two='black')
-
-@app.route('/<int:x>/<int:y>/<string:one>/<string:two>')
-def row_col_two(x,y,one,two):
-    return render_template("index.html",row=x,col=y,color_one=one,color_two=two)
-
-if __name__=="__main__":
+if __name__ =="__main__":
     app.run(debug=True)
